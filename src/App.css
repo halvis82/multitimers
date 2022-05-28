@@ -1,38 +1,72 @@
-.App {
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: cursive;
+}
+
+body {
+  background: gray;
+  width: 100vw;
+  height: 100vh;
+}
+
+h1 {
+  width: 100vw;
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.timerContainer {
+  width: 100vw;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+  flex-flow: row wrap;
+  justify-content: space-around;
+  padding: 2vmin;
+}
+
+.timerBox {
+  border: solid black;
+  border-radius: 10%;
+  width: 20vw;
+  min-width: 200px;
+  aspect-ratio: 1 / 1;
+
+  padding: 10px;
+  margin: 2px;
+}
+
+.timerContentBox {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.buttonBox {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-around;
+}
+
+.timeBox {
+  text-align: center;
+  font-size: 30px;
+}
+
+input[type=button] {
+  padding: 3px;
+  border-radius: 5px;
+  border: none;
+  outline: none;
+  width: 44%;
+  aspect-ratio: 3 / 1;
+  background-color: green;
   color: white;
+  font-size: 14px;
 }
 
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+input[type=button]:hover, input[type=button]:focus {
+  color: white;
+  font-weight: bolder;
+  font-size: 15px;
 }
