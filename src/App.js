@@ -6,10 +6,10 @@ function App() {
     <div className="App">
       <h1>Multi timers</h1>
       <div className='timerContainer'>
-        <Timer />
-        <Timer />
-        <Timer />
-        <Timer />
+        <Timer TimerOrStopclock="timer" />
+        <Timer TimerOrStopclock="timer" />
+        <Timer TimerOrStopclock="timer" />
+        <Timer TimerOrStopclock="" />
       </div>
     </div>
   )
