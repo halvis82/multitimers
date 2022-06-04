@@ -1,0 +1,30 @@
+on stopwatch:
+- 1 button: stop/start
+- 1 button: reset
+
+on timer: 
+- 1 button: start/stop
+- 1 button: reset
+- count seconds, minutes, hours, from right, but only for units that are present
+- circle animation on timer than goes around in time of completion (maybe gradually go from green to red)
+- on click time when timer -> 
+- add some flashing color when finished (css animation class) (maybe another translucent box on top that stops on click)
+- add some sound when finished maybe (mutable) (so small speaker icon appears when timer)
+
+
+notes:
+- make it like google timer and stopwatch
+- set max box size
+- size time numbers better
+- make option to add and remove timers (small green '+' and red '-' next to title)
+- set favicon (and title?)
+- always use two siffers -> "03" > "3"
+- some style difference between timer and stopwatch
+- maybe round cs to 2 decimals
+- change colors of progress bar when paused
+- maybe make progress bar bigger/more visible
+- save time on timer/stopwatch on switch
+
+remember:
+- stop typing on onBlur() -- 
+- useEffect() something to stop interval from somewhere else
