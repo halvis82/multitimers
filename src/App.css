@@ -1,8 +1,14 @@
+/* Standard */
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   font-family: cursive;
+  -webkit-user-select: none; /* Safari */        
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE10+/Edge */
+  user-select: none; /* Standard */
 }
 
 body {
@@ -16,7 +22,10 @@ h1 {
   text-align: center;
 }
 
-.timerContainer {
+
+/* Timer boxes */
+
+.multiTimerContainer {
   width: 100vw;
   display: flex;
   flex-flow: row wrap;
@@ -35,6 +44,13 @@ h1 {
   margin: 2px;
   background-color: #96A4A5;
   position: relative;
+}
+
+.timerContentBox {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: space-between;
+  height: 100%;
 }
 
 .timerProgressBox {
@@ -56,56 +72,29 @@ h1 {
   /* animation-play-state: paused; */
 }
 
-/* animation: https://stackoverflow.com/questions/70233709/html-css-circular-progress-bar-with-image-inside */
+.timerOverBox {
+  position: absolute;
+  width: 101%;
+  height: 101%;
+  left: 0;
+  top: 0;
+  border-radius: 10%;
+  opacity: 0.4;
+  background-color: red;
 
-@keyframes fill {
-  0% {
-clip-path: polygon(50% -20.71%, 50% 50%, 50% 0%, 50% 0%, 50% 0%, 50% 0%, 50% 0%);
-  }
-  12.5% {
-clip-path: polygon(50% -20.71%, 50% 50%, 100% 0%, 100% 0%, 100% 0%, 100% 0%, 100% 0%);
-  }
-  25% {
-clip-path: polygon(50% -20.71%, 50% 50%, 120.71% 50%, 120.71% 50%, 120.71% 50%, 120.71% 50%, 100% 0%);
-  }
-  37.5% {
-clip-path: polygon(50% -20.71%, 50% 50%, 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 0%);
-  }
-  50% {
-clip-path: polygon(50% -20.71%, 50% 50%, 50% 120.71%, 50% 120.71%, 50% 120.71%, 100% 100%, 100% 0%);
-  }
-  62.5% {
-clip-path: polygon(50% -20.71%, 50% 50%, 0% 100%, 0% 100%, 0% 100%, 100% 100%, 100% 0%);
-  }
-  75% {
-clip-path: polygon(50% -20.71%, 50% 50%, -20.71% 50%, -20.71% 50%, 0% 100%, 100% 100%, 100% 0%);
-  }
-  87.5% {
-clip-path: polygon(50% -20.71%, 50% 50%, 0% 0%, 0% 0%, 0% 100%, 100% 100%, 100% 0%);
-  }
-  100% {
-clip-path: polygon(50% -20.71%, 50% 50%, 50% -20.71%, 0% 0%, 0% 100%, 100% 100%, 100% 0%);
-  }
+  animation: blink 0.5s linear infinite;
 }
 
-.timerContentBox {
-  display: flex;
-  flex-flow: column nowrap;
-  justify-content: space-between;
-  height: 100%;
-}
 
-.buttonBox {
-  display: flex;
-  flex-flow: row wrap;
-  justify-content: space-around;
-}
+/* Time text */
 
-.timeBox {
+.timeTextBox {
   text-align: center;
   font-size: 30px;
   width: 100%;
   font-variant-numeric: tabular-nums;
+  border-radius: 15px;
+  outline: none;
 
   display: flex;
   flex-flow: row wrap;
@@ -117,21 +106,21 @@ clip-path: polygon(50% -20.71%, 50% 50%, 50% -20.71%, 0% 0%, 0% 100%, 100% 100%,
   margin-top: 15px;
 }
 
-@keyframes typingIndicatorAnimation {
-  from {
-    color: white;
-  }
-  to {
-    color: #B3B5B4;
-  }
-}
-
 .typingIndicator {
   color: white;
   margin-left: -3px;
   margin-right: -2px;
 
   animation: typingIndicatorAnimation 0.4s alternate infinite;
+}
+
+
+/* Buttons */
+
+.buttonBox {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-around;
 }
 
 input[type=button] {
@@ -152,6 +141,65 @@ input[type=button]:hover, input[type=button]:focus {
   filter: brightness(0.8);
 }
 
+input[type=button]:hover {
+  outline: solid blueviolet;
+}
+
 input[type=button]:active {
-  outline: solid black;
+  outline: dashed black;
+}
+
+
+/* Animations */
+
+@keyframes typingIndicatorAnimation {
+  from {
+    color: white;
+  }
+  to {
+    color: #B3B5B4;
+  }
+}
+
+/* animation: https://stackoverflow.com/questions/70233709/html-css-circular-progress-bar-with-image-inside */
+@keyframes fill {
+  0% {
+    clip-path: polygon(50% -20.71%, 50% 50%, 50% 0%, 50% 0%, 50% 0%, 50% 0%, 50% 0%);
+  }
+  12.5% {
+    clip-path: polygon(50% -20.71%, 50% 50%, 100% 0%, 100% 0%, 100% 0%, 100% 0%, 100% 0%);
+  }
+  25% {
+    clip-path: polygon(50% -20.71%, 50% 50%, 120.71% 50%, 120.71% 50%, 120.71% 50%, 120.71% 50%, 100% 0%);
+  }
+  37.5% {
+    clip-path: polygon(50% -20.71%, 50% 50%, 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 0%);
+  }
+  50% {
+    clip-path: polygon(50% -20.71%, 50% 50%, 50% 120.71%, 50% 120.71%, 50% 120.71%, 100% 100%, 100% 0%);
+  }
+  62.5% {
+    clip-path: polygon(50% -20.71%, 50% 50%, 0% 100%, 0% 100%, 0% 100%, 100% 100%, 100% 0%);
+  }
+  75% {
+    clip-path: polygon(50% -20.71%, 50% 50%, -20.71% 50%, -20.71% 50%, 0% 100%, 100% 100%, 100% 0%);
+  }
+  87.5% {
+    clip-path: polygon(50% -20.71%, 50% 50%, 0% 0%, 0% 0%, 0% 100%, 100% 100%, 100% 0%);
+  }
+  100% {
+    clip-path: polygon(50% -20.71%, 50% 50%, 50% -20.71%, 0% 0%, 0% 100%, 100% 100%, 100% 0%);
+  }
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+  /* from {
+    background: red;
+  }
+  to {
+    background: none;
+  } */
 }
