@@ -1,18 +1,18 @@
 {
   "files": {
-    "main.css": "/multitimers/static/css/main.945508a8.css",
-    "main.js": "/multitimers/static/js/main.678826de.js",
+    "main.css": "/multitimers/static/css/main.264f53eb.css",
+    "main.js": "/multitimers/static/js/main.72b0bc63.js",
     "static/js/845.83d1888f.chunk.js": "/multitimers/static/js/845.83d1888f.chunk.js",
     "static/js/787.8c258c11.chunk.js": "/multitimers/static/js/787.8c258c11.chunk.js",
     "static/media/alarm.wav": "/multitimers/static/media/alarm.d3f42f81331de5b17e26.wav",
     "index.html": "/multitimers/index.html",
-    "main.945508a8.css.map": "/multitimers/static/css/main.945508a8.css.map",
-    "main.678826de.js.map": "/multitimers/static/js/main.678826de.js.map",
+    "main.264f53eb.css.map": "/multitimers/static/css/main.264f53eb.css.map",
+    "main.72b0bc63.js.map": "/multitimers/static/js/main.72b0bc63.js.map",
     "845.83d1888f.chunk.js.map": "/multitimers/static/js/845.83d1888f.chunk.js.map",
     "787.8c258c11.chunk.js.map": "/multitimers/static/js/787.8c258c11.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.945508a8.css",
-    "static/js/main.678826de.js"
+    "static/css/main.264f53eb.css",
+    "static/js/main.72b0bc63.js"
   ]
 }
