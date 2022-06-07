@@ -1,21 +1,18 @@
 on stopwatch:
 - 
 
-on timer: 
-- 1 button: start/stop/ok
-- circle animation on timer than goes around in time of completion (maybe gradually go from green to red)
+on timer:
 - when finished: ok button, sound (mutable (small speaker icon)), flashing (css animation class (maybe another translucent box on top that stops on click))
-- twitching when starting sometimes -> when starting with mouse from typing state
-- when pausing and unpausing, timer sometimes go up/down one second for a split second (dont think it affects actual timer)
+- stop timer without mouse? (universal press space)
+- showing one number to little when 1 + (x * 0) time (only happened once?)
+- when starting timer with mouse after typing -> time lags, sometimes starts from one number (second) less (maybe similar issue to random_note_96)
+- when typing -> add left and right arrow to move cursor around
+- sometimes stops on 1, even though 50ms added (was tabbed out last time)
 
 
 notes:
-- make it like google timer and stopwatch
-- set max box size
-- size time numbers better
 - make option to add and remove timers (small green '+' and red '-' next to title)
-- set favicon (and title?)
 - some style difference between timer and stopwatch
-- maybe round cs to 2 decimals
-- change colors of progress bar when paused
-- maybe make progress bar bigger/more visible
+- change colors of progress bar when paused (blue?)
+- maybe change inline style for progressbar in Timer.js
+- make typing work on (i)Phone (invisible number input, time selector wheel, INPUT TYPE TIME -> different code for phone then)

@@ -1,10 +1,13 @@
-/* Standard */
+/* Default styles */
+
+@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@500&displacy=swap");
 
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: cursive;
+  /* font-family: cursive; */
+  font-family: "Manrope", sans-serif;
   -webkit-user-select: none; /* Safari */        
   -moz-user-select: none; /* Firefox */
   -ms-user-select: none; /* IE10+/Edge */
@@ -37,7 +40,8 @@ h1 {
   border: solid black;
   border-radius: 10%;
   width: 20vw;
-  min-width: 200px;
+  min-width: 250px;
+  max-width: 350px;
   aspect-ratio: 1 / 1;
 
   padding: 10px;
@@ -61,15 +65,15 @@ h1 {
   top: 0;
   border-radius: 10%;
   pointer-events: none;
-  border: solid rgb(245, 179, 94);
+  border: 0.6em solid red  /*rgb(245, 179, 94)*/;
 
   /* temp for visualization */
-  /* background-color: rebeccapurple;
-  opacity: 0.4; */
+  /* Gbackground-color: rebeccapurple;
+  Gopacity: 0.4; */
 
-  animation: fill linear reverse forwards;
-  animation-duration: 3s;
-  /* animation-play-state: paused; */
+  /* Ganimation: fill linear reverse forwards; */
+  /* Ganimation-duration: 3s; */
+  /* Ganimation-play-state: paused; */
 }
 
 .timerOverBox {
@@ -90,7 +94,8 @@ h1 {
 
 .timeTextBox {
   text-align: center;
-  font-size: 30px;
+  /* font-size: 30px; */
+  font-size: 40px;
   width: 100%;
   font-variant-numeric: tabular-nums;
   border-radius: 15px;
@@ -102,8 +107,10 @@ h1 {
 }
 
 .smallUnit {
-  font-size: 15px;
-  margin-top: 15px;
+  /* font-size: 15px;
+  margin-top: 15px; */
+  font-size: 20px;
+  margin-top: 20px;
 }
 
 .typingIndicator {
@@ -125,13 +132,16 @@ h1 {
 
 input[type=button] {
   padding: 3px;
-  border-radius: 5px;
+  /* border-radius: 5px; */
+  border-radius: 360px; /* to have consistent border radius */
   border: none;
   outline: none;
-  width: 44%;
+  width: 46%;
   aspect-ratio: 2.8 / 1;
   color: white;
   font-size: 14px;
+  margin-top: 3%;
+  margin-bottom: 3%;
 }
 
 input[type=button]:hover, input[type=button]:focus {
@@ -165,30 +175,35 @@ input[type=button]:active {
 @keyframes fill {
   0% {
     clip-path: polygon(50% -20.71%, 50% 50%, 50% 0%, 50% 0%, 50% 0%, 50% 0%, 50% 0%);
+    border: 0.6em solid red;
   }
   12.5% {
     clip-path: polygon(50% -20.71%, 50% 50%, 100% 0%, 100% 0%, 100% 0%, 100% 0%, 100% 0%);
   }
   25% {
     clip-path: polygon(50% -20.71%, 50% 50%, 120.71% 50%, 120.71% 50%, 120.71% 50%, 120.71% 50%, 100% 0%);
+    border: 0.6em solid orange;
   }
   37.5% {
     clip-path: polygon(50% -20.71%, 50% 50%, 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 0%);
   }
   50% {
     clip-path: polygon(50% -20.71%, 50% 50%, 50% 120.71%, 50% 120.71%, 50% 120.71%, 100% 100%, 100% 0%);
+    border: 0.6em solid yellow;
   }
   62.5% {
     clip-path: polygon(50% -20.71%, 50% 50%, 0% 100%, 0% 100%, 0% 100%, 100% 100%, 100% 0%);
   }
   75% {
     clip-path: polygon(50% -20.71%, 50% 50%, -20.71% 50%, -20.71% 50%, 0% 100%, 100% 100%, 100% 0%);
+    border: 0.6em solid lightgreen;
   }
   87.5% {
     clip-path: polygon(50% -20.71%, 50% 50%, 0% 0%, 0% 0%, 0% 100%, 100% 100%, 100% 0%);
   }
   100% {
     clip-path: polygon(50% -20.71%, 50% 50%, 50% -20.71%, 0% 0%, 0% 100%, 100% 100%, 100% 0%);
+    border: 0.6em solid green;
   }
 }
 

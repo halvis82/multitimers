@@ -50,13 +50,17 @@ const Timer = ({ potentialTimerTime }) => {
   const [isTimer, setIsTimer] = useState(Boolean(potentialTimerTime))
   const [typing, setTyping] = useState(false)
   const [originalTimerTime, setOriginalTimerTime] = useState((!potentialTimerTime) ? 60000 : +potentialTimerTime)
-  const [time, setTime] = useState(0)   // ((isTimer) ? originalTimerTime : 0)
+  const [time, setTime] = useState(0)
   const [timeInUnits, setTimeInUnits] = useState((isTimer) ? msToAllUnits(originalTimerTime) : ["0", "0", "0", "0", "0", "0", "0", "0"])
   const [running, setRunning] = useState(false)
   const [startTime, setStartTime] = useState()
   const [previousTime, setPreviousTime] = useState(0)
   const [timerOver, setTimerOver] = useState(false)
   const [playAlarm, { stop }] = useSound(alarmSound)
+  const [progressbarStyle, setProgressbarStyle] = useState({
+    visibility: "hidden"
+  })
+  const [startAfter, setStartAfter] = useState(false)
 
 
   // Inline styles
@@ -89,34 +93,40 @@ const Timer = ({ potentialTimerTime }) => {
   ]
 
 
-  // Switch buttons
-  const switchTimer = (e) => {
-    e.target.blur()
-    reset()
-    setIsTimer(true)
-    setTime(0)
-    setTimeInUnits(msToAllUnits(originalTimerTime))
-  }
-
-  const switchStopwatch = (e) => {
-    e.target.blur()
-    setIsTimer(false)
-    setTime(0)
-    setTimeInUnits(msToAllUnits(0))
-  }
-
-
   // Control timer/stopwatch
   const start = () => {
+    if (isTimer && originalTimerTime === 0) {
+      return
+    }
+
     if (!running) {
       setStartTime(new Date())
       setRunning(true)
     }
+
+    if (isTimer) {
+      setProgressbarStyle({
+        visibility: "visible",
+        animation: `fill linear reverse ${originalTimerTime / 1000}s`,
+      })
+    }
   }
 
   const stopTime = () => {
-    setPreviousTime(time)
+    setPreviousTime(
+      (isTimer)
+      ?
+      time + 1000
+      :
+      time
+    )
     setRunning(false)
+
+    if (isTimer) {
+      setProgressbarStyle({
+        animation: `fill linear reverse ${originalTimerTime / 1000}s paused`
+      })
+    }
   }
 
   const reset = () => {
@@ -124,13 +134,45 @@ const Timer = ({ potentialTimerTime }) => {
     setTimeInUnits(msToAllUnits((isTimer) ? originalTimerTime : 0))
     setTime(0)
     setRunning(false)
+
+    if (isTimer) {
+      setProgressbarStyle({
+        visibility: "hidden",
+        animation: ``
+      })
+    }
+  }
+  
+  const switchButton = (e) => {
+    // Quit if selected button pressed
+    if (e.target.style.backgroundColor === "rgb(146, 210, 147)" /* greenIsh */) {
+      return
+    }
+
+    e.target.blur()
+    reset()
+    setTime(0)
+    setIsTimer(!isTimer)
+
+    // Stopwatch (because state hasn't updated yet)
+    if (isTimer) {
+      setTimeInUnits(msToAllUnits(0))
+  
+      setProgressbarStyle({
+        visibility: "hidden"
+      })
+    }
+    // Timer
+    else {
+      setTimeInUnits(msToAllUnits(originalTimerTime))
+    }
   }
 
 
   // Timer done
   const timerDone = () => {
     stopTime()
-    setTimerOver(true) // Turn on 
+    setTimerOver(true) // Turn on flash
     playAlarm()
   }
 
@@ -143,7 +185,18 @@ const Timer = ({ potentialTimerTime }) => {
 
   // Main continuous loop
   useEffect(() => {
+    if (startAfter) {
+      start()
+      setStartAfter(false)
+    }
+
     let interval = null
+
+    // if (!running && !isTimer && previousTime === 0) {  //this not working, but solution maybe something like this
+    //   if (+timeInUnits[5] !== 0) {
+    //     setTimeInUnits(msToAllUnits(0))
+    //   }
+    // }
 
     if (running) {
       interval = setInterval(() => {
@@ -154,7 +207,7 @@ const Timer = ({ potentialTimerTime }) => {
         if (isTimer) {
           setTime(previousTime + new Date().getTime() - startTime.getTime() - 1000)
   
-          if (previousTime + new Date().getTime() - startTime.getTime() > originalTimerTime + 10 /* to let it hit '0' */) {
+          if (previousTime + new Date().getTime() - startTime.getTime() > originalTimerTime /*+ 50*/   /* to let it hit '0' */) {
             timerDone()
             clearInterval()
           }
@@ -232,7 +285,7 @@ const Timer = ({ potentialTimerTime }) => {
     
     else if (key === "enter" || key === " " /* space */) {
       stopTyping()
-      start()
+      setStartAfter(true)
 
       e.target.blur()
     }
@@ -262,12 +315,12 @@ const Timer = ({ potentialTimerTime }) => {
 
         {/* Switch buttons */}
         <div className='buttonBox'>
-          <input type="button" value="Timer" onClick={switchTimer} style={{backgroundColor: (isTimer) ? greenIsh : redIsh}} />
-          <input type="button" value="Stopwatch" onClick={switchStopwatch} style={{backgroundColor: (isTimer) ? redIsh : greenIsh}} />
+          <input type="button" value="Timer" onClick={switchButton} style={{backgroundColor: (isTimer) ? greenIsh : redIsh}} />
+          <input type="button" value="Stopwatch" onClick={switchButton} style={{backgroundColor: (isTimer) ? redIsh : greenIsh}} />
         </div>
 
         {/* Time text */}
-        <div style={{backgroundColor: (typing) ? typingBackground : normalBackground}} tabIndex={"0"} className='timeTextBox' onClick={startTyping} onBlur={stopTyping} onKeyDown={typeTime}>
+        <div style={{backgroundColor: (typing) ? typingBackground : normalBackground}} tabIndex={"0"} className='timeTextBox' onFocus={startTyping} onClick={startTyping} onBlur={stopTyping} onKeyDown={typeTime}>
           <span style={allTimeStyles[0]}>{timeInUnits[0]}</span>
           <span style={allTimeStyles[1]}>{timeInUnits[1]}</span>
           <span className='smallUnit' style={allTimeStyles[1]}>h</span>
@@ -277,7 +330,7 @@ const Timer = ({ potentialTimerTime }) => {
           <span style={allTimeStyles[4]} >{timeInUnits[4]}</span>
           <span style={allTimeStyles[5]} >{timeInUnits[5]}</span>
           <span className='typingIndicator' style={{display: (typing) ? "block" : "none"}}>|</span>
-          <span className='smallUnit' style={{marginRight: "6px"}}>s</span>
+          <span className='smallUnit' style={{/*marginRight: "6px"*/}}>s</span>
           <span style={allTimeStyles[6]}>{timeInUnits[6]}</span>
           <span style={allTimeStyles[6]}>{timeInUnits[7]}</span>
         </div>
@@ -291,7 +344,13 @@ const Timer = ({ potentialTimerTime }) => {
       </div>
       
       {/* Animations */}
-      <div className='timerProgressBox' style={{visibility: (isTimer) ? "visible" : "hidden"}  /*{animationDuration: `${originalTimerTime}s`}*/} ></div>
+      <style>{`
+        .timerProgressBox {
+          animation: "fill linear reverse forwards";
+        }
+      `}
+      </style>
+      <div className='timerProgressBox' style={progressbarStyle /*{visibility: (isTimer) ? "visible" : "hidden"}*/  /*{animationDuration: `${originalTimerTime}s`}*/} ></div>
       <div className='timerOverBox' onClick={stopTimer} style={{visibility: (isTimer && timerOver) ? "visible" : "hidden"}} ></div>
     </div>
   )
